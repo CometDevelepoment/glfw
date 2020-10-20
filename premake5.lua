@@ -1,4 +1,5 @@
 project "GLFW"
+	flags { 'NoPCH' }
 	kind "StaticLib"
 	language "C"
 
@@ -40,6 +41,35 @@ project "GLFW"
 		defines
 		{
 			"_GLFW_X11"
+		}
+
+	filter "system:macosx"
+		pic "On"
+		systemversion "latest"
+		staticruntime "On"
+		
+		files
+		{
+			"src/cocoa_init.m",
+			"src/cocoa_joystick.h",
+			"src/cocoa_joystick.m",
+			"src/cocoa_monitor.m",
+			"src/cocoa_platform.h",
+			"src/cocoa_time.c",
+			"src/cocoa_window.m"
+		}
+
+		defines
+		{
+			"_GLFW_COCOA"
+		}
+
+		links
+		{
+			"CoreFoundation.framework",
+			"Cocoa.framework",
+			"IOKit.framework",
+			"CoreVideo.framework"
 		}
 
 	filter "system:windows"
